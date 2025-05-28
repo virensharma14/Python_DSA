@@ -1,3 +1,5 @@
+# using 2 pointers/index approach
+
 def swap(x,y):
     temp=x
     x=y
