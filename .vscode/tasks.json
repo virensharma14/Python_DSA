@@ -4,15 +4,15 @@
     {
       "label": "compile",
       "type": "shell",
-      "command": "clang++",
+      "command": "g++",
       "args": [
         "-std=c++17",
         "-o",
-        "${fileBasenameNoExtension}",
-        "${file}"
+        "\"${fileBasenameNoExtension}\"",
+        "\"${file}\""
       ],
       "options": {
-        "cwd": "${fileDirname}"  // This ensures it runs in the same directory as the .cpp file
+        "cwd": "${fileDirname}"
       },
       "group": {
         "kind": "build",
@@ -22,13 +22,33 @@
     {
       "label": "compile and run",
       "type": "shell",
-      "command": "clang++ -std=c++17 -o \"${fileBasenameNoExtension}\" \"${file}\" && ./${fileBasenameNoExtension} < input.txt > output.txt",
+      "command": "clang++ -std=c++17 -o \"${fileBasenameNoExtension}\" \"${file}\" && ./\"${fileBasenameNoExtension}\" < input.txt > output.txt && cat output.txt",
       "options": {
-        "cwd": "${fileDirname}"  // This fixes the input.txt error
+        "cwd": "${fileDirname}"
       },
       "group": {
         "kind": "build",
         "isDefault": true
+      }
+    },
+    {
+      "label": "build for debug",
+      "type": "shell",
+      "command": "clang++",
+      "args": [
+        "-std=c++17",
+        "-g",
+        "-o",
+        "${fileBasenameNoExtension}_debug", // <- note the different output binary
+        "${file}"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
       }
     }
   ]
