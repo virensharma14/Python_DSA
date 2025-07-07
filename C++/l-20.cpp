@@ -6,6 +6,42 @@
 #include <vector>
 using namespace std;
 
+int subarray_optimal_positives_zeroes(vector<int> a,long long k)
+{
+    int left=0,right=0;
+    long long sum=a[0];
+    int maxlen=0;
+    int n=a.size();
+
+    while(right<n)
+    {
+
+        while(left <=right && sum>k)
+        {
+            sum-=a[left];
+            left++;
+
+        }
+        if(sum==k)
+        {
+            maxlen=max(maxlen,right-left+1);
+        }
+        right++;
+        if(right<n)
+        {
+            sum+=a[right];
+        }
+        
+
+    }
+
+    return maxlen;
+
+
+
+
+}
+
 
 int subarray_brute_hashing(vector<int> a,long long k)
 {
@@ -13,7 +49,7 @@ int subarray_brute_hashing(vector<int> a,long long k)
     long long sum=0;
     int maxlen=0;
 
-    for(int i=0;a.size();i++)
+    for(int i=0;i<a.size();i++)
     {
         sum+=a[i];
         if(sum==k)
@@ -29,7 +65,10 @@ int subarray_brute_hashing(vector<int> a,long long k)
 
         }
 
-        presumMap[rem]=i;
+        if(presumMap.find(sum)==presumMap.end())
+        {
+            presumMap[sum]=i;
+        }
 
 
     }
@@ -98,6 +137,7 @@ int main()
 
 
    vector<int> array2={1 ,2 ,3 ,1, 1, 1, 1, 4, 2, 3};
+   vector<int> array3={1 ,2 ,3 ,1, 1, 1, 1, 3, 3};
     
 
     // for(int i=0;i<n;i++)
@@ -110,9 +150,10 @@ int main()
     // int answer=maximum_ones_consecutive(array,n);
     // int answer=subarray_brute(array2,10,3);
     // int answer=subarray_brute_better(array2,10,3);
-    int answer2=subarray_brute_hashing(array2,3);
+    // int answer2=subarray_brute_hashing(array2,3);
+    int answer3=subarray_optimal_positives_zeroes(array2,6);
 
-    // cout<<answer<<endl;
+    cout<<answer3<<endl;
     
     
     
