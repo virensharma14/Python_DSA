@@ -78,9 +78,9 @@ int main()
 
     }
 
-    // selectionsort(array,n);
+    selectionsort(array,n);
     // bubblesort(array,n);
-    insertionsort(array,n);
+    // insertionsort(array,n);
     for(int i=0;i<n;i++)
     {
         cout<<array[i]<<endl;
