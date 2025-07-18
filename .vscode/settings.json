@@ -48,5 +48,6 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "list": "cpp"
-    }
+    },
+    "C_Cpp.default.compilerPath": "C:/MinGW/bin/gcc.exe"
 }

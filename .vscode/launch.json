@@ -2,24 +2,25 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug C++ (clang++)",
+      "name": "Debug active file (C/C++)",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}_debug",  // <== FIXED HERE
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
       "environment": [],
-      "externalConsole": false,
-      "MIMode": "lldb",
-      "preLaunchTask": "build for debug",
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
       "setupCommands": [
         {
-          "description": "Enable pretty-printing for lldb",
+          "description": "Enable pretty-printing for gdb",
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ]
+      ],
+      "preLaunchTask": "Build active file"
     }
   ]
 }

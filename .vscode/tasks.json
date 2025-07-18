@@ -2,53 +2,57 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "compile",
+      "label": "Build active file",
       "type": "shell",
-      "command": "g++",
+      "command": "cmd.exe",
       "args": [
-        "-std=c++17",
-        "-o",
-        "\"${fileBasenameNoExtension}\"",
-        "\"${file}\""
+        "/c",
+        "if \"%~x1\"==\".c\" (gcc -g \"${file}\" -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\") else (g++ -std=c++17 -g \"${file}\" -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\")"
       ],
       "options": {
-        "cwd": "${fileDirname}"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      }
-    },
-    {
-      "label": "compile and run",
-      "type": "shell",
-      "command": "clang++ -std=c++17 -o \"${fileBasenameNoExtension}\" \"${file}\" && ./\"${fileBasenameNoExtension}\" < input.txt > output.txt && cat output.txt",
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "build for debug",
-      "type": "shell",
-      "command": "clang++",
-      "args": [
-        "-std=c++17",
-        "-g",
-        "-o",
-        "${fileBasenameNoExtension}_debug", // <- note the different output binary
-        "${file}"
-      ],
-      "options": {
-        "cwd": "${fileDirname}"
+        "cwd": "${fileDirname}",
+        "shell": {
+          "executable": "cmd.exe",
+          "args": ["/c"]
+        }
       },
       "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Build and Run active file with I/O",
+      "type": "shell",
+      "command": "cmd.exe",
+      "args": [
+        "/c",
+        "if \"%~x1\"==\".c\" (gcc -g \"${file}\" -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\") else (g++ -std=c++17 -g \"${file}\" -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\") && \"${fileDirname}\\${fileBasenameNoExtension}.exe\" < \"${fileDirname}\\input.txt\" > \"${fileDirname}\\output.txt\" && type \"${fileDirname}\\output.txt\""
+      ],
+      "options": {
+        "cwd": "${fileDirname}",
+        "shell": {
+          "executable": "cmd.exe",
+          "args": ["/c"]
+        }
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
       }
     }
   ]
